@@ -1,0 +1,22 @@
+{
+  "name": "virtual-ui-componenet-library",
+  "version": "1.0.7",
+  "description": "Virtual UI React Component Library",
+  "author": "Lakshay",
+  "license": "ISC",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "devDependencies": {
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
+  }
+}
