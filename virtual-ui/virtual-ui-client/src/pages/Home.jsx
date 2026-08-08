@@ -173,7 +173,7 @@ export default function Home() {
             className="text-lg font-bold tracking-tight"
             style={{ fontFamily: "'Syne',sans-serif" }}
           >
-            VirtualAI
+            VirtualUI
           </span>
         </div>
 
@@ -626,7 +626,7 @@ export default function Home() {
               <SiValorant size={11} color="#051c20" />
             </div>
             <span className="text-sm font-semibold text-white/60">
-              VirtualAI
+              VirtualUI
             </span>
           </div>
           <div className="flex flex-wrap justify-center gap-4 sm:gap-5 text-xs text-white/30">
@@ -638,11 +638,11 @@ export default function Home() {
             </a>
 
             <a className="hover:text-white/60 transition-colors">
-              admin@virtualai.com
+              admin@virtualui.com
             </a>
           </div>
           <p className="text-xs text-white/25 order-last sm:order-none">
-            © {new Date().getFullYear()} VirtualAI. All rights reserved.
+            © {new Date().getFullYear()} VirtualUI. All rights reserved.
           </p>
         </div>
       </footer>

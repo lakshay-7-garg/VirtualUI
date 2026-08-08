@@ -1,15 +1,34 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  TbUsers, TbCode, TbLogout, TbPlus, TbLayoutDashboard,
-  TbPackage, TbX, TbTrash, TbDeviceFloppy, TbUpload,
-  TbEye, TbCodeDots, TbLoader, TbMenu2, TbChevronLeft,
-  TbWorld, TbSearch, TbBoxOff,
+  TbUsers,
+  TbCode,
+  TbLogout,
+  TbPlus,
+  TbLayoutDashboard,
+  TbPackage,
+  TbX,
+  TbTrash,
+  TbDeviceFloppy,
+  TbUpload,
+  TbEye,
+  TbCodeDots,
+  TbLoader,
+  TbMenu2,
+  TbChevronLeft,
+  TbWorld,
+  TbSearch,
+  TbBoxOff,
 } from "react-icons/tb";
 import { SiValorant } from "react-icons/si";
 import {
-  AreaChart, Area, XAxis, YAxis, CartesianGrid,
-  Tooltip, ResponsiveContainer,
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
 } from "recharts";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -50,7 +69,11 @@ function PropsInput({ props, setProps }) {
           <span
             key={p}
             className="flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold"
-            style={{ background: "rgba(167,139,250,0.15)", color: "#a78bfa", border: "1px solid rgba(167,139,250,0.25)" }}
+            style={{
+              background: "rgba(167,139,250,0.15)",
+              color: "#a78bfa",
+              border: "1px solid rgba(167,139,250,0.25)",
+            }}
           >
             {p}
             <button
@@ -63,7 +86,9 @@ function PropsInput({ props, setProps }) {
           </span>
         ))}
         {props.length === 0 && (
-          <span className="text-xs text-white/20 self-center">No props added yet</span>
+          <span className="text-xs text-white/20 self-center">
+            No props added yet
+          </span>
         )}
       </div>
       <div className="flex gap-2">
@@ -71,7 +96,10 @@ function PropsInput({ props, setProps }) {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === ",") { e.preventDefault(); addProp(); }
+            if (e.key === "Enter" || e.key === ",") {
+              e.preventDefault();
+              addProp();
+            }
           }}
           placeholder='e.g. "title", "onClick", "children"'
           className="flex-1 min-w-0 bg-white/[0.04] border border-white/10 rounded-xl px-3 py-2 text-sm text-white placeholder-white/20 outline-none focus:border-[#a78bfa]/50 transition-colors"
@@ -79,13 +107,21 @@ function PropsInput({ props, setProps }) {
         <button
           onClick={addProp}
           className="px-3 sm:px-4 py-2 rounded-xl text-sm font-semibold border-none cursor-pointer transition-all whitespace-nowrap"
-          style={{ background: "rgba(167,139,250,0.15)", color: "#a78bfa", border: "1px solid rgba(167,139,250,0.25)" }}
+          style={{
+            background: "rgba(167,139,250,0.15)",
+            color: "#a78bfa",
+            border: "1px solid rgba(167,139,250,0.25)",
+          }}
         >
           Add
         </button>
       </div>
       <p className="text-[10px] text-white/20 mt-1.5">
-        Press <kbd className="px-1 py-0.5 rounded bg-white/5 text-white/40 text-[9px]">Enter</kbd> or comma to add a prop
+        Press{" "}
+        <kbd className="px-1 py-0.5 rounded bg-white/5 text-white/40 text-[9px]">
+          Enter
+        </kbd>{" "}
+        or comma to add a prop
       </p>
     </div>
   );
@@ -93,15 +129,15 @@ function PropsInput({ props, setProps }) {
 
 // ── ADD COMPONENT FORM ───────────────────────────────────────────────────────
 function AddComponentForm({ onSaved }) {
-  const [name, setName]             = useState("");
-  const [props, setProps]           = useState([]);
-  const [code, setCode]             = useState("");
-  const [codeTab, setCodeTab]       = useState("code");
-  const [saving, setSaving]         = useState(false);
+  const [name, setName] = useState("");
+  const [props, setProps] = useState([]);
+  const [code, setCode] = useState("");
+  const [codeTab, setCodeTab] = useState("code");
+  const [saving, setSaving] = useState(false);
   const [publishing, setPublishing] = useState(false);
-  const [savedId, setSavedId]       = useState(null);
+  const [savedId, setSavedId] = useState(null);
   const [isPublished, setIsPublished] = useState(false);
-  const [toast, setToast]           = useState(null);
+  const [toast, setToast] = useState(null);
 
   const showToast = (msg, type = "info") => {
     setToast({ msg, type });
@@ -118,7 +154,7 @@ function AddComponentForm({ onSaved }) {
       const res = await axios.post(
         `${ServerUrl}/api/component/save`,
         { name: name.trim(), code, props },
-        { withCredentials: true }
+        { withCredentials: true },
       );
       setSavedId(res.data._id);
       showToast("Component saved successfully!", "success");
@@ -137,7 +173,7 @@ function AddComponentForm({ onSaved }) {
       await axios.post(
         `${ServerUrl}/api/component/publish`,
         { componentId: savedId },
-        { withCredentials: true }
+        { withCredentials: true },
       );
       setIsPublished(true);
       showToast("Published to npm successfully!", "success");
@@ -150,7 +186,6 @@ function AddComponentForm({ onSaved }) {
 
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-5 sm:py-6 max-w-3xl w-full mx-auto">
-
       {/* Toast */}
       <AnimatePresence>
         {toast && (
@@ -160,7 +195,12 @@ function AddComponentForm({ onSaved }) {
             exit={{ opacity: 0, y: 40 }}
             className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 z-50 flex items-center gap-3 px-4 sm:px-5 py-3 rounded-2xl shadow-2xl text-white text-sm font-medium"
             style={{
-              background: toast.type === "success" ? "#0d9f6e" : toast.type === "error" ? "#e02424" : "#1c1c2e",
+              background:
+                toast.type === "success"
+                  ? "#0d9f6e"
+                  : toast.type === "error"
+                    ? "#e02424"
+                    : "#1c1c2e",
               maxWidth: "calc(100vw - 2rem)",
             }}
           >
@@ -171,11 +211,11 @@ function AddComponentForm({ onSaved }) {
 
       <h2 className="text-base sm:text-lg font-bold mb-1">Add Component</h2>
       <p className="text-white/35 text-xs mb-5 sm:mb-6">
-        Manually add a component — give it a name, define props, paste the code and preview it.
+        Manually add a component — give it a name, define props, paste the code
+        and preview it.
       </p>
 
       <div className="space-y-4 sm:space-y-5">
-
         {/* ── Component Name ── */}
         <div className="p-3.5 sm:p-4 rounded-2xl border border-white/[0.07] bg-white/[0.02] space-y-2">
           <label className="text-xs font-semibold text-white/50 uppercase tracking-wider block">
@@ -203,18 +243,27 @@ function AddComponentForm({ onSaved }) {
             <label className="text-xs font-semibold text-white/50 uppercase tracking-wider">
               Component Code
             </label>
-            <div className="flex gap-1 rounded-xl p-1" style={{ background: "rgba(0,0,0,0.3)" }}>
+            <div
+              className="flex gap-1 rounded-xl p-1"
+              style={{ background: "rgba(0,0,0,0.3)" }}
+            >
               {["code", "preview"].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setCodeTab(tab)}
                   className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-medium transition-all capitalize border-none cursor-pointer"
                   style={{
-                    background: codeTab === tab ? "rgba(59,232,255,0.2)" : "transparent",
-                    color: codeTab === tab ? "#3be8ff" : "rgba(255,255,255,0.4)",
+                    background:
+                      codeTab === tab ? "rgba(59,232,255,0.2)" : "transparent",
+                    color:
+                      codeTab === tab ? "#3be8ff" : "rgba(255,255,255,0.4)",
                   }}
                 >
-                  {tab === "code" ? <TbCodeDots size={12} /> : <TbEye size={12} />}
+                  {tab === "code" ? (
+                    <TbCodeDots size={12} />
+                  ) : (
+                    <TbEye size={12} />
+                  )}
                   <span className="hidden xs:inline">{tab}</span>
                 </button>
               ))}
@@ -223,7 +272,12 @@ function AddComponentForm({ onSaved }) {
 
           <AnimatePresence mode="wait">
             {codeTab === "code" ? (
-              <motion.div key="code-editor" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <motion.div
+                key="code-editor"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
                 <textarea
                   value={code}
                   onChange={(e) => setCode(e.target.value)}
@@ -235,7 +289,13 @@ function AddComponentForm({ onSaved }) {
                 />
               </motion.div>
             ) : (
-              <motion.div key="code-preview" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="p-3.5 sm:p-4">
+              <motion.div
+                key="code-preview"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="p-3.5 sm:p-4"
+              >
                 {code.trim() ? (
                   <LiveComponentPreview code={code} />
                 ) : (
@@ -253,7 +313,6 @@ function AddComponentForm({ onSaved }) {
 
         {/* ── Action Buttons ── */}
         <div className="flex items-center gap-2 sm:gap-3 flex-wrap pt-1">
-
           {/* Save */}
           <motion.button
             onClick={handleSave}
@@ -261,13 +320,18 @@ function AddComponentForm({ onSaved }) {
             whileTap={{ scale: 0.97 }}
             className="flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl text-sm font-semibold disabled:opacity-40 disabled:cursor-not-allowed transition-all border-none cursor-pointer"
             style={{
-              background: savedId ? "rgba(16,185,129,0.12)" : "rgba(59,232,255,0.12)",
+              background: savedId
+                ? "rgba(16,185,129,0.12)"
+                : "rgba(59,232,255,0.12)",
               color: savedId ? "#34d399" : "#3be8ff",
               border: `1px solid ${savedId ? "rgba(16,185,129,0.3)" : "rgba(59,232,255,0.25)"}`,
             }}
           >
             {saving ? (
-              <motion.span animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: "linear" }}>
+              <motion.span
+                animate={{ rotate: 360 }}
+                transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+              >
                 <TbDeviceFloppy size={15} />
               </motion.span>
             ) : (
@@ -288,13 +352,23 @@ function AddComponentForm({ onSaved }) {
                 whileTap={{ scale: 0.97 }}
                 className="flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl text-sm font-semibold disabled:opacity-40 transition-all border-none cursor-pointer"
                 style={{
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)",
-                  boxShadow: publishing ? "none" : "0 0 20px rgba(6,182,212,0.25)",
+                  background:
+                    "linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)",
+                  boxShadow: publishing
+                    ? "none"
+                    : "0 0 20px rgba(6,182,212,0.25)",
                   color: "#fff",
                 }}
               >
                 {publishing ? (
-                  <motion.span animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: "linear" }}>
+                  <motion.span
+                    animate={{ rotate: 360 }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 1,
+                      ease: "linear",
+                    }}
+                  >
                     <TbLoader size={15} />
                   </motion.span>
                 ) : (
@@ -312,7 +386,11 @@ function AddComponentForm({ onSaved }) {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold"
-                style={{ background: "rgba(16,185,129,0.1)", border: "1px solid rgba(16,185,129,0.3)", color: "#34d399" }}
+                style={{
+                  background: "rgba(16,185,129,0.1)",
+                  border: "1px solid rgba(16,185,129,0.3)",
+                  color: "#34d399",
+                }}
               >
                 ✓ Published
               </motion.div>
@@ -323,8 +401,12 @@ function AddComponentForm({ onSaved }) {
           {(savedId || code || name) && (
             <button
               onClick={() => {
-                setName(""); setProps([]); setCode("");
-                setSavedId(null); setIsPublished(false); setCodeTab("code");
+                setName("");
+                setProps([]);
+                setCode("");
+                setSavedId(null);
+                setIsPublished(false);
+                setCodeTab("code");
               }}
               className="ml-auto flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs text-white/30 hover:text-white/60 transition-all bg-transparent border-none cursor-pointer"
             >
@@ -373,15 +455,21 @@ export default function AdminDashboard() {
   // Prevent body scroll when sidebar open on mobile
   useEffect(() => {
     document.body.style.overflow = sidebarOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [sidebarOpen]);
 
-  const publicComponents = allcomponents?.filter((c) => c.visibility === "public") || [];
+  const publicComponents =
+    allcomponents?.filter((c) => c.visibility === "public") || [];
 
   const filteredPublicComponents = componentSearch.trim()
-    ? publicComponents.filter((c) =>
-        c.name?.toLowerCase().includes(componentSearch.toLowerCase()) ||
-        c.props?.some((p) => p.toLowerCase().includes(componentSearch.toLowerCase()))
+    ? publicComponents.filter(
+        (c) =>
+          c.name?.toLowerCase().includes(componentSearch.toLowerCase()) ||
+          c.props?.some((p) =>
+            p.toLowerCase().includes(componentSearch.toLowerCase()),
+          ),
       )
     : publicComponents;
 
@@ -391,7 +479,10 @@ export default function AdminDashboard() {
     publicComponents.forEach((c) => {
       const raw = c.createdAt || c.created_at;
       if (!raw) return;
-      const label = new Date(raw).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+      const label = new Date(raw).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+      });
       map[label] = (map[label] || 0) + 1;
     });
     return Object.entries(map)
@@ -401,13 +492,25 @@ export default function AdminDashboard() {
   })();
 
   const stats = [
-    { label: "Total Users",     value: allUsers?.length      || 0, icon: TbUsers, color: "#3be8ff" },
-    { label: "Components Made", value: publicComponents?.length || 0, icon: TbCode,  color: "#a78bfa" },
+    {
+      label: "Total Users",
+      value: allUsers?.length || 0,
+      icon: TbUsers,
+      color: "#3be8ff",
+    },
+    {
+      label: "Components Made",
+      value: publicComponents?.length || 0,
+      icon: TbCode,
+      color: "#a78bfa",
+    },
   ];
 
   const handleLogout = async () => {
     try {
-      await axios.get(`${ServerUrl}/api/auth/logout`, { withCredentials: true });
+      await axios.get(`${ServerUrl}/api/auth/logout`, {
+        withCredentials: true,
+      });
       dispatch(setUserData(null));
       navigate("/");
     } catch (e) {
@@ -416,8 +519,8 @@ export default function AdminDashboard() {
   };
 
   const navItems = [
-    { id: "dashboard", label: "Dashboard",     Icon: TbLayoutDashboard },
-    { id: "add",       label: "Add Component", Icon: TbPackage          },
+    { id: "dashboard", label: "Dashboard", Icon: TbLayoutDashboard },
+    { id: "add", label: "Add Component", Icon: TbPackage },
   ];
 
   // ── Sidebar content (shared between mobile drawer & desktop) ──
@@ -429,8 +532,10 @@ export default function AdminDashboard() {
           <SiValorant size={15} color="#051c20" />
         </div>
         <div>
-          <span className="text-base font-bold block">VirtualAI</span>
-          <span className="text-[10px] text-[#3be8ff]/60 font-semibold tracking-[2px] uppercase">Admin</span>
+          <span className="text-base font-bold block">VirtualUI</span>
+          <span className="text-[10px] text-[#3be8ff]/60 font-semibold tracking-[2px] uppercase">
+            Admin
+          </span>
         </div>
         {/* Close button – mobile only */}
         <button
@@ -453,7 +558,9 @@ export default function AdminDashboard() {
               style={{
                 background: isActive ? "rgba(59,232,255,0.08)" : "transparent",
                 color: isActive ? "#3be8ff" : "rgba(255,255,255,0.45)",
-                borderLeft: isActive ? "2px solid #3be8ff" : "2px solid transparent",
+                borderLeft: isActive
+                  ? "2px solid #3be8ff"
+                  : "2px solid transparent",
               }}
             >
               <Icon size={16} style={{ opacity: isActive ? 1 : 0.7 }} />
@@ -522,10 +629,8 @@ export default function AdminDashboard() {
 
       {/* ── MAIN ── */}
       <main className="flex-1 md:ml-60 min-h-screen overflow-y-auto">
-
         {/* Topbar */}
         <div className="sticky top-0 z-10 px-4 sm:px-6 lg:px-8 py-3.5 sm:py-4 bg-[#030b0d]/90 backdrop-blur-md border-b border-white/[0.05] flex items-center justify-between gap-2">
-
           {/* Left: Hamburger (mobile) + Title */}
           <div className="flex items-center gap-3 min-w-0">
             {/* Hamburger – mobile only */}
@@ -583,12 +688,17 @@ export default function AdminDashboard() {
                     <div className="mb-2.5 sm:mb-3">
                       <div
                         className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center"
-                        style={{ background: `${color}15`, border: `1px solid ${color}25` }}
+                        style={{
+                          background: `${color}15`,
+                          border: `1px solid ${color}25`,
+                        }}
                       >
                         <Icon size={15} style={{ color }} />
                       </div>
                     </div>
-                    <p className="text-xl sm:text-2xl font-bold">{value.toLocaleString()}</p>
+                    <p className="text-xl sm:text-2xl font-bold">
+                      {value.toLocaleString()}
+                    </p>
                     <p className="text-white/40 text-xs mt-0.5">{label}</p>
                   </motion.div>
                 ))}
@@ -603,8 +713,12 @@ export default function AdminDashboard() {
               >
                 <div className="flex items-start sm:items-center justify-between mb-4 sm:mb-5 gap-2">
                   <div className="min-w-0">
-                    <p className="font-semibold text-sm truncate">Public Components Published</p>
-                    <p className="text-white/35 text-xs mt-0.5">Date-wise breakdown</p>
+                    <p className="font-semibold text-sm truncate">
+                      Public Components Published
+                    </p>
+                    <p className="text-white/35 text-xs mt-0.5">
+                      Date-wise breakdown
+                    </p>
                   </div>
                   <span className="text-[10px] font-semibold px-2 sm:px-2.5 py-1 rounded-full bg-[#a78bfa]/10 text-[#a78bfa] border border-[#a78bfa]/20 flex-shrink-0">
                     Last 12 days
@@ -617,14 +731,34 @@ export default function AdminDashboard() {
                   </div>
                 ) : (
                   <ResponsiveContainer width="100%" height={200}>
-                    <AreaChart data={chartData} margin={{ top: 5, right: 5, bottom: 0, left: -25 }}>
+                    <AreaChart
+                      data={chartData}
+                      margin={{ top: 5, right: 5, bottom: 0, left: -25 }}
+                    >
                       <defs>
-                        <linearGradient id="componentGradient" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%"   stopColor="#a78bfa" stopOpacity={0.3} />
-                          <stop offset="100%" stopColor="#a78bfa" stopOpacity={0}   />
+                        <linearGradient
+                          id="componentGradient"
+                          x1="0"
+                          y1="0"
+                          x2="0"
+                          y2="1"
+                        >
+                          <stop
+                            offset="0%"
+                            stopColor="#a78bfa"
+                            stopOpacity={0.3}
+                          />
+                          <stop
+                            offset="100%"
+                            stopColor="#a78bfa"
+                            stopOpacity={0}
+                          />
                         </linearGradient>
                       </defs>
-                      <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
+                      <CartesianGrid
+                        strokeDasharray="3 3"
+                        stroke="rgba(255,255,255,0.04)"
+                      />
                       <XAxis
                         dataKey="date"
                         tick={{ fill: "rgba(255,255,255,0.3)", fontSize: 10 }}
@@ -639,10 +773,17 @@ export default function AdminDashboard() {
                         allowDecimals={false}
                         width={30}
                       />
-                      <Tooltip content={<CustomTooltip />} cursor={{ stroke: "rgba(255,255,255,0.06)" }} />
+                      <Tooltip
+                        content={<CustomTooltip />}
+                        cursor={{ stroke: "rgba(255,255,255,0.06)" }}
+                      />
                       <Area
-                        type="monotone" dataKey="components" stroke="#a78bfa" strokeWidth={2}
-                        fill="url(#componentGradient)" dot={false}
+                        type="monotone"
+                        dataKey="components"
+                        stroke="#a78bfa"
+                        strokeWidth={2}
+                        fill="url(#componentGradient)"
+                        dot={false}
                         activeDot={{ r: 4, fill: "#a78bfa", strokeWidth: 0 }}
                       />
                     </AreaChart>
@@ -660,18 +801,30 @@ export default function AdminDashboard() {
                 {/* Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-4 sm:px-5 py-4 border-b border-white/[0.05]">
                   <div className="flex items-center gap-2.5">
-                    <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "rgba(59,232,255,0.1)", border: "1px solid rgba(59,232,255,0.2)" }}>
+                    <div
+                      className="w-7 h-7 rounded-lg flex items-center justify-center"
+                      style={{
+                        background: "rgba(59,232,255,0.1)",
+                        border: "1px solid rgba(59,232,255,0.2)",
+                      }}
+                    >
                       <TbWorld size={14} style={{ color: "#3be8ff" }} />
                     </div>
                     <div>
                       <p className="font-semibold text-sm">Public Components</p>
-                      <p className="text-white/35 text-[11px]">{publicComponents.length} components visible to all users</p>
+                      <p className="text-white/35 text-[11px]">
+                        {publicComponents.length} components visible to all
+                        users
+                      </p>
                     </div>
                   </div>
 
                   {/* Search */}
                   <div className="relative w-full sm:w-48">
-                    <TbSearch size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none" />
+                    <TbSearch
+                      size={13}
+                      className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none"
+                    />
                     <input
                       value={componentSearch}
                       onChange={(e) => setComponentSearch(e.target.value)}
@@ -686,7 +839,9 @@ export default function AdminDashboard() {
                   <div className="flex flex-col items-center justify-center py-14 gap-3 text-white/20">
                     <TbBoxOff size={32} />
                     <p className="text-sm">
-                      {componentSearch ? "No components match your search" : "No public components yet"}
+                      {componentSearch
+                        ? "No components match your search"
+                        : "No public components yet"}
                     </p>
                   </div>
                 ) : (
@@ -703,12 +858,17 @@ export default function AdminDashboard() {
                         <div className="flex items-start sm:items-center gap-3 min-w-0">
                           <div
                             className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5 sm:mt-0"
-                            style={{ background: "rgba(167,139,250,0.1)", border: "1px solid rgba(167,139,250,0.2)" }}
+                            style={{
+                              background: "rgba(167,139,250,0.1)",
+                              border: "1px solid rgba(167,139,250,0.2)",
+                            }}
                           >
                             <TbCode size={14} style={{ color: "#a78bfa" }} />
                           </div>
                           <div className="min-w-0">
-                            <p className="text-sm font-semibold text-white truncate">{comp.name}</p>
+                            <p className="text-sm font-semibold text-white truncate">
+                              {comp.name}
+                            </p>
                             {/* Props tags */}
                             {comp.props?.length > 0 && (
                               <div className="flex flex-wrap gap-1 mt-1">
@@ -716,7 +876,10 @@ export default function AdminDashboard() {
                                   <span
                                     key={p}
                                     className="px-1.5 py-0.5 rounded-md text-[10px] font-medium"
-                                    style={{ background: "rgba(167,139,250,0.1)", color: "rgba(167,139,250,0.7)" }}
+                                    style={{
+                                      background: "rgba(167,139,250,0.1)",
+                                      color: "rgba(167,139,250,0.7)",
+                                    }}
                                   >
                                     {p}
                                   </span>
@@ -735,14 +898,22 @@ export default function AdminDashboard() {
                         <div className="flex flex-col sm:flex-row items-end sm:items-center gap-2 flex-shrink-0">
                           {comp.createdAt || comp.created_at ? (
                             <span className="text-[11px] text-white/25 whitespace-nowrap">
-                              {new Date(comp.createdAt || comp.created_at).toLocaleDateString("en-US", {
-                                month: "short", day: "numeric", year: "numeric",
+                              {new Date(
+                                comp.createdAt || comp.created_at,
+                              ).toLocaleDateString("en-US", {
+                                month: "short",
+                                day: "numeric",
+                                year: "numeric",
                               })}
                             </span>
                           ) : null}
                           <span
                             className="flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold"
-                            style={{ background: "rgba(59,232,255,0.08)", color: "#3be8ff", border: "1px solid rgba(59,232,255,0.2)" }}
+                            style={{
+                              background: "rgba(59,232,255,0.08)",
+                              color: "#3be8ff",
+                              border: "1px solid rgba(59,232,255,0.2)",
+                            }}
                           >
                             <TbWorld size={9} /> public
                           </span>
@@ -752,7 +923,6 @@ export default function AdminDashboard() {
                   </div>
                 )}
               </motion.div>
-
             </motion.div>
           )}
 

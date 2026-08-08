@@ -374,7 +374,7 @@ export default function ComponentsPage() {
             className="text-sm sm:text-base font-bold text-white"
             style={{ fontFamily: "'Syne',sans-serif" }}
           >
-            VirtualAI
+            VirtualUI
           </span>
         </button>
 

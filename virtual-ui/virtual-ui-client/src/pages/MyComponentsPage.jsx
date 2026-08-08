@@ -1,9 +1,18 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  TbCode, TbEye, TbBox, TbCopy, TbCheck,
-  TbPackage, TbBrandNpm, TbChevronRight, TbSearch,
-  TbLayoutSidebarLeftExpand, TbX, TbMenu2
+  TbCode,
+  TbEye,
+  TbBox,
+  TbCopy,
+  TbCheck,
+  TbPackage,
+  TbBrandNpm,
+  TbChevronRight,
+  TbSearch,
+  TbLayoutSidebarLeftExpand,
+  TbX,
+  TbMenu2,
 } from "react-icons/tb";
 import { HiSparkles } from "react-icons/hi2";
 import { SiValorant } from "react-icons/si";
@@ -24,7 +33,11 @@ function CopyBtn({ text }) {
       onClick={handle}
       className="flex items-center gap-1.5 text-[11px] text-white/30 hover:text-white/60 transition-colors bg-transparent border-none cursor-pointer px-2 py-1 rounded-lg hover:bg-white/[0.04]"
     >
-      {copied ? <TbCheck size={13} className="text-[#3be8ff]" /> : <TbCopy size={13} />}
+      {copied ? (
+        <TbCheck size={13} className="text-[#3be8ff]" />
+      ) : (
+        <TbCopy size={13} />
+      )}
       {copied ? "Copied" : "Copy"}
     </button>
   );
@@ -35,10 +48,15 @@ function CodeBlock({ code, lang = "jsx" }) {
   return (
     <div
       className="rounded-xl overflow-hidden"
-      style={{ background: "#060f11", border: "1px solid rgba(255,255,255,0.06)" }}
+      style={{
+        background: "#060f11",
+        border: "1px solid rgba(255,255,255,0.06)",
+      }}
     >
       <div className="flex items-center justify-between px-4 py-2 border-b border-white/[0.05]">
-        <span className="text-[10px] text-white/25 font-mono uppercase tracking-widest">{lang}</span>
+        <span className="text-[10px] text-white/25 font-mono uppercase tracking-widest">
+          {lang}
+        </span>
         <CopyBtn text={code} />
       </div>
       <pre className="px-4 py-3.5 text-[12px] font-mono text-green-300 leading-relaxed overflow-x-auto whitespace-pre">
@@ -62,12 +80,14 @@ function GuidePanel() {
           <TbPackage size={24} className="text-[#3be8ff]/60" />
         </div>
 
-        <h2 className="text-base sm:text-lg font-bold mb-2 text-white/80">Select a component</h2>
+        <h2 className="text-base sm:text-lg font-bold mb-2 text-white/80">
+          Select a component
+        </h2>
         <p className="text-white/35 text-xs sm:text-sm mb-8 sm:mb-10 max-w-sm mx-auto leading-relaxed">
-          Click any component from the sidebar to see its preview, code, and usage guide.
+          Click any component from the sidebar to see its preview, code, and
+          usage guide.
         </p>
 
-       
         <p className="text-white/20 text-xs">
           ← Select a component from the sidebar to get started
         </p>
@@ -115,7 +135,9 @@ export default function App() {
             </button>
           )}
           <div className="min-w-0">
-            <h2 className="text-sm sm:text-base font-bold text-white truncate">{component.name}</h2>
+            <h2 className="text-sm sm:text-base font-bold text-white truncate">
+              {component.name}
+            </h2>
             <p className="text-white/35 text-[11px] sm:text-xs mt-0.5 truncate">
               {component.props?.length > 0
                 ? `Props: ${component.props.join(", ")}`
@@ -139,7 +161,8 @@ export default function App() {
               onClick={() => setActiveTab(id)}
               className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-[11px] sm:text-xs font-medium transition-all capitalize cursor-pointer border-none whitespace-nowrap"
               style={{
-                background: activeTab === id ? "rgba(59,232,255,0.15)" : "transparent",
+                background:
+                  activeTab === id ? "rgba(59,232,255,0.15)" : "transparent",
                 color: activeTab === id ? "#3be8ff" : "rgba(255,255,255,0.35)",
               }}
             >
@@ -152,17 +175,26 @@ export default function App() {
       {/* Tab content */}
       <div className="flex-1 overflow-y-auto p-4 sm:p-6">
         <AnimatePresence mode="wait">
-
           {/* Preview */}
           {activeTab === "preview" && (
-            <motion.div key="preview" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <motion.div
+              key="preview"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
               <LiveComponentPreview code={component.code} />
             </motion.div>
           )}
 
           {/* Code */}
           {activeTab === "code" && (
-            <motion.div key="code" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <motion.div
+              key="code"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
               <CodeBlock code={component.code} lang="jsx" />
             </motion.div>
           )}
@@ -184,7 +216,8 @@ export default function App() {
               <div>
                 <p className="text-xs font-semibold text-white/50 mb-3 flex items-center gap-2">
                   <TbCopy size={13} />
-                  <span className="text-[#3be8ff]/70 font-bold">01</span> Copy the component code
+                  <span className="text-[#3be8ff]/70 font-bold">01</span> Copy
+                  the component code
                 </p>
                 <CodeBlock code={component.code} lang="jsx" />
               </div>
@@ -193,7 +226,8 @@ export default function App() {
               <div>
                 <p className="text-xs font-semibold text-white/50 mb-3 flex items-center gap-2">
                   <TbCode size={13} />
-                  <span className="text-[#3be8ff]/70 font-bold">02</span> Create a new file
+                  <span className="text-[#3be8ff]/70 font-bold">02</span> Create
+                  a new file
                 </p>
                 <CodeBlock code={`${component.name}.jsx`} lang="filename" />
                 <p className="text-[11px] text-white/25 mt-2 px-1">
@@ -205,14 +239,13 @@ export default function App() {
               <div>
                 <p className="text-xs font-semibold text-white/50 mb-3 flex items-center gap-2">
                   <HiSparkles size={13} />
-                  <span className="text-[#3be8ff]/70 font-bold">03</span> Import and use in App.jsx
+                  <span className="text-[#3be8ff]/70 font-bold">03</span> Import
+                  and use in App.jsx
                 </p>
                 <CodeBlock code={usageCode} lang="jsx" />
               </div>
-
             </motion.div>
           )}
-
         </AnimatePresence>
       </div>
     </motion.div>
@@ -246,7 +279,9 @@ function SidebarContent({ components, selected, onSelect, search, setSearch }) {
       {/* List */}
       <div className="flex-1 overflow-y-auto py-1 px-2">
         {components.length === 0 ? (
-          <p className="text-white/20 text-xs text-center py-8 px-3">No components yet</p>
+          <p className="text-white/20 text-xs text-center py-8 px-3">
+            No components yet
+          </p>
         ) : (
           components.map((c) => (
             <button
@@ -254,9 +289,16 @@ function SidebarContent({ components, selected, onSelect, search, setSearch }) {
               onClick={() => onSelect(c)}
               className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm transition-all cursor-pointer border text-left mb-0.5"
               style={{
-                background: selected?._id === c._id ? "rgba(59,232,255,0.07)" : "transparent",
-                borderColor: selected?._id === c._id ? "rgba(59,232,255,0.18)" : "transparent",
-                color: selected?._id === c._id ? "#3be8ff" : "rgba(255,255,255,0.5)",
+                background:
+                  selected?._id === c._id
+                    ? "rgba(59,232,255,0.07)"
+                    : "transparent",
+                borderColor:
+                  selected?._id === c._id
+                    ? "rgba(59,232,255,0.18)"
+                    : "transparent",
+                color:
+                  selected?._id === c._id ? "#3be8ff" : "rgba(255,255,255,0.5)",
               }}
             >
               <span className="truncate font-medium text-xs">{c.name}</span>
@@ -292,7 +334,9 @@ export default function MyComponentsPage() {
   // Prevent body scroll when drawer is open
   useEffect(() => {
     document.body.style.overflow = drawerOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [drawerOpen]);
 
   const myComponents = (allcomponents || [])
@@ -326,7 +370,7 @@ export default function MyComponentsPage() {
             className="text-sm sm:text-base font-bold text-white"
             style={{ fontFamily: "'Syne',sans-serif" }}
           >
-            VirtualAI
+            VirtualUI
           </span>
         </button>
 
@@ -348,8 +392,10 @@ export default function MyComponentsPage() {
       </nav>
 
       {/* ── BODY ── */}
-      <div className="flex flex-1 overflow-hidden" style={{ height: "calc(100vh - 57px)" }}>
-
+      <div
+        className="flex flex-1 overflow-hidden"
+        style={{ height: "calc(100vh - 57px)" }}
+      >
         {/* ── DESKTOP SIDEBAR ── */}
         <aside className="hidden sm:flex w-52 md:w-56 shrink-0 flex-col border-r border-white/[0.06] bg-[#040e11] overflow-hidden">
           <SidebarContent
@@ -413,12 +459,14 @@ export default function MyComponentsPage() {
         {/* ── MAIN CONTENT ── */}
         <main className="flex-1 overflow-hidden bg-[#030b0d] min-w-0">
           {selected ? (
-            <DetailPanel component={selected} onBack={() => setSelected(null)} />
+            <DetailPanel
+              component={selected}
+              onBack={() => setSelected(null)}
+            />
           ) : (
             <GuidePanel />
           )}
         </main>
-
       </div>
     </div>
   );
